@@ -10,10 +10,14 @@ app.use(json());
 
 // Configuración de CORS para permitir solicitudes desde el frontend
 app.use(cors({
-    origin: 'https://calculadora-front-ecru.vercel.app',
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
+    origin: 'https://calculadora-front-ecru.vercel.app',  // Permitir solicitudes desde el frontend específico
+    methods: ['GET', 'POST', 'OPTIONS'],                  // Incluir 'OPTIONS' para preflight
+    allowedHeaders: ['Content-Type'],                     // Encabezados permitidos
+    credentials: true                                     // Si es necesario manejar cookies o credenciales
 }));
+
+// Ruta para manejar solicitudes preflight (opcional)
+app.options('*', cors());  // Manejar solicitudes preflight
 
 app.get('/', async (req, res) => {
     res.send("hola soy el back de la calculadora de Kevin");
